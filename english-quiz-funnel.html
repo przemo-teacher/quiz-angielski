@@ -13,21 +13,21 @@
      CSS VARIABLES — zmień tutaj kolory, fonty i inne ustawienia
      ============================================================ */
   :root {
-    /* --- Kolor główny (niebieski) --- zmień #2563EB na dowolny kolor */
-    --primary:        #2563EB;
-    --primary-dark:   #1d4ed8;
-    --primary-light:  #eff6ff;
-    --primary-glow:   rgba(37, 99, 235, 0.18);
+    /* --- Kolor główny (#FAD02C żółty) --- */
+    --primary:        #FAD02C;
+    --primary-dark:   #e0b800;
+    --primary-light:  #fffbea;
+    --primary-glow:   rgba(250, 208, 44, 0.22);
 
     /* --- Kolory uzupełniające --- */
-    --accent:         #f59e0b;     /* żółty akcent */
+    --accent:         #111827;     /* ciemny akcent na przyciskach CTA */
     --success:        #10b981;
     --surface:        #ffffff;
-    --bg:             #f0f4ff;
+    --bg:             #fffdf0;
     --text:           #111827;
     --text-muted:     #6b7280;
     --border:         #e5e7eb;
-    --shadow:         rgba(37, 99, 235, 0.10);
+    --shadow:         rgba(250, 208, 44, 0.14);
 
     /* --- Typografia --- */
     --font-display:   'Sora', sans-serif;
@@ -66,8 +66,8 @@
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37,99,235,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(245,158,11,0.06) 0%, transparent 60%);
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(250,208,44,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(250,208,44,0.07) 0%, transparent 60%);
     pointer-events: none;
     z-index: 0;
   }
@@ -91,7 +91,7 @@
     padding: 40px 36px;
     box-shadow:
       0 4px 6px -1px rgba(0,0,0,0.05),
-      0 20px 60px -10px rgba(37,99,235,0.12);
+      0 20px 60px -10px rgba(250,208,44,0.15);
     border: 1px solid rgba(255,255,255,0.8);
     position: relative;
     overflow: hidden;
@@ -102,7 +102,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary), #818cf8, var(--accent));
+    background: linear-gradient(90deg, var(--primary), #fbbf24, var(--primary-dark));
   }
 
   @media (max-width: 480px) {
@@ -123,11 +123,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes fadeSlideOut {
-    from { opacity: 1; transform: translateY(0); }
-    to   { opacity: 0; transform: translateY(-18px); }
-  }
-
   /* ============================================================
      WELCOME SCREEN
      ============================================================ */
@@ -136,7 +131,7 @@
     align-items: center;
     gap: 6px;
     background: var(--primary-light);
-    color: var(--primary);
+    color: #92690a;
     font-family: var(--font-display);
     font-size: 12px;
     font-weight: 600;
@@ -145,6 +140,7 @@
     padding: 6px 14px;
     border-radius: 99px;
     margin-bottom: 20px;
+    border: 1px solid rgba(250,208,44,0.4);
   }
 
   .welcome-title {
@@ -157,7 +153,7 @@
   }
 
   .welcome-title span {
-    background: linear-gradient(135deg, var(--primary), #818cf8);
+    background: linear-gradient(135deg, #b8860b, #FAD02C);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -197,7 +193,7 @@
     display: block;
     width: 100%;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #fff;
+    color: #111827;
     font-family: var(--font-display);
     font-size: 16px;
     font-weight: 700;
@@ -216,7 +212,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    background: linear-gradient(135deg, rgba(255,255,255,0.25), transparent);
     opacity: 0;
     transition: opacity var(--transition);
   }
@@ -243,13 +239,14 @@
     font-size: 13px;
     font-weight: 600;
     color: var(--text-muted);
+    visibility: hidden;
   }
 
   .progress-count {
     font-family: var(--font-display);
     font-size: 13px;
     font-weight: 700;
-    color: var(--primary);
+    color: #92690a;
   }
 
   .progress-track {
@@ -263,7 +260,7 @@
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary), #818cf8);
+    background: linear-gradient(90deg, var(--primary), #fbbf24);
     border-radius: 99px;
     transition: width 0.5s cubic-bezier(.4,0,.2,1);
   }
@@ -319,6 +316,11 @@
     color: var(--text);
     position: relative;
     overflow: hidden;
+    /* BUGFIX mobile: blokujemy efekt :focus który na iOS/Android
+       powoduje wizualne "zaznaczenie" pierwszego przycisku po
+       odświeżeniu ekranu pytania */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
   }
 
   .option-btn::before {
@@ -355,18 +357,19 @@
     line-height: 1.4;
   }
 
-  .option-btn:hover:not(:disabled) {
-    border-color: var(--primary);
-    transform: translateX(4px);
-    box-shadow: 0 2px 12px var(--primary-glow);
-  }
-
-  .option-btn:hover:not(:disabled)::before { opacity: 1; }
-
-  .option-btn:hover:not(:disabled) .option-letter {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #fff;
+  /* Hover tylko na urządzeniach z myszą — nie na dotykowych! */
+  @media (hover: hover) {
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      transform: translateX(4px);
+      box-shadow: 0 2px 12px var(--primary-glow);
+    }
+    .option-btn:hover:not(:disabled)::before { opacity: 1; }
+    .option-btn:hover:not(:disabled) .option-letter {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #111827;
+    }
   }
 
   /* Selected state */
@@ -379,10 +382,17 @@
   .option-btn.selected .option-letter {
     background: var(--primary);
     border-color: var(--primary);
-    color: #fff;
+    color: #111827;
   }
 
   .option-btn:disabled { cursor: default; }
+
+  /* BUGFIX: Usuń efekt :focus-visible na mobile po kliknięciu */
+  .option-btn:focus { outline: none; box-shadow: none; }
+  .option-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
 
   /* ============================================================
      EMAIL GATE SCREEN
@@ -518,7 +528,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), #818cf8);
+    background: linear-gradient(135deg, var(--primary), #fbbf24);
     box-shadow: 0 8px 32px var(--primary-glow);
     margin-bottom: 20px;
     animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) both;
@@ -533,14 +543,14 @@
     font-family: var(--font-display);
     font-size: 22px;
     font-weight: 800;
-    color: #fff;
+    color: #111827;
     line-height: 1;
   }
 
   .level-badge-label {
     font-size: 10px;
     font-weight: 600;
-    color: rgba(255,255,255,0.8);
+    color: rgba(17,24,39,0.7);
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-top: 2px;
@@ -562,11 +572,11 @@
 
   .result-email-info {
     background: var(--primary-light);
-    border: 1px solid rgba(37,99,235,0.2);
+    border: 1px solid rgba(250,208,44,0.4);
     border-radius: var(--radius-md);
     padding: 14px 18px;
     font-size: 13.5px;
-    color: var(--primary-dark);
+    color: #92690a;
     margin-bottom: 24px;
     line-height: 1.5;
   }
@@ -590,7 +600,7 @@
     font-family: var(--font-display);
     font-size: 28px;
     font-weight: 800;
-    color: var(--primary);
+    color: #92690a;
   }
 
   .score-summary-sep {
@@ -614,8 +624,8 @@
   .btn-cta {
     display: block;
     width: 100%;
-    background: linear-gradient(135deg, var(--accent), #d97706);
-    color: #fff;
+    background: linear-gradient(135deg, #111827, #374151);
+    color: #FAD02C;
     font-family: var(--font-display);
     font-size: 15px;
     font-weight: 700;
@@ -626,14 +636,14 @@
     transition: all var(--transition);
     text-align: center;
     text-decoration: none;
-    box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+    box-shadow: 0 4px 20px rgba(17,24,39,0.18);
     letter-spacing: 0.01em;
     margin-top: 6px;
   }
 
   .btn-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(245,158,11,0.35);
+    box-shadow: 0 8px 28px rgba(17,24,39,0.22);
   }
 
   /* ============================================================
@@ -748,12 +758,6 @@
 <script>
 /* ============================================================
    PYTANIA QUIZU
-   ============================================================
-   Każde pytanie zawiera:
-     text     — treść pytania
-     options  — 4 opcje odpowiedzi (A/B/C/D)
-     correct  — indeks poprawnej odpowiedzi (0=A, 1=B, 2=C, 3=D)
-     level    — etykieta poziomu (tylko do wyświetlenia)
    ============================================================ */
 const questions = [
   /* ---------- PYTANIA 1–3: POZIOM A1/A2 ---------- */
@@ -875,16 +879,6 @@ const questions = [
 
 /* ============================================================
    LOGIKA OCENIANIA
-   ============================================================
-   Zmień progi (scoreThresholds) oraz opisy (levelData)
-   według własnych potrzeb.
-
-   scoreThresholds:
-     Pierwsze dwa progi to minimalna liczba punktów
-     potrzebna do danego poziomu.
-     0–3  → Beginner  (A1/A2)
-     4–6  → Intermediate (B1/B2)
-     7–10 → Advanced (C1/C2)
    ============================================================ */
 const levelData = {
   beginner: {
@@ -914,15 +908,15 @@ let currentQuestion = 0;
 let score = 0;
 let userEmail = "";
 let userName = "";
+let isTransitioning = false; // BUGFIX: blokada podczas animacji przejścia
 
 /* ============================================================
    FUNKCJE POMOCNICZE
    ============================================================ */
 function getLevel(s) {
-  /* ---- ZMIEŃ TU PROGI PUNKTOWE ---- */
-  if (s <= 3) return "beginner";        /* 0–3  → Beginner  */
-  if (s <= 6) return "intermediate";    /* 4–6  → Intermediate */
-  return "advanced";                    /* 7–10 → Advanced  */
+  if (s <= 3) return "beginner";
+  if (s <= 6) return "intermediate";
+  return "advanced";
 }
 
 function showScreen(id) {
@@ -956,8 +950,8 @@ function renderQuestion() {
   document.getElementById('question-counter').textContent = `Pytanie ${num} z ${total}`;
   document.getElementById('progress-fill').style.width = `${(num / total) * 100}%`;
 
-  /* Etykieta poziomu */
-  document.getElementById('q-level-tag').textContent = q.level;
+  /* Etykieta poziomu — ukryta */
+  document.getElementById('q-level-tag').textContent = '';
 
   /* Treść pytania */
   document.getElementById('question-text').textContent = q.text;
@@ -967,22 +961,42 @@ function renderQuestion() {
   const grid = document.getElementById('options-grid');
   grid.innerHTML = '';
 
+  /* BUGFIX: Resetujemy fokus ze wszystkich przycisków — na mobile
+     przeglądarka czasem automatycznie ustawia fokus na pierwszym
+     elemencie, co powoduje wizualne "zaznaczenie" */
+  document.activeElement?.blur();
+
   q.options.forEach((opt, i) => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
+    btn.setAttribute('tabindex', '-1'); // tymczasowo wyłącz tabindex
     btn.innerHTML = `
       <span class="option-letter">${letters[i]}</span>
       <span class="option-text">${opt}</span>
     `;
-    btn.addEventListener('click', () => selectAnswer(i));
+    btn.addEventListener('click', () => {
+      if (!isTransitioning) selectAnswer(i);
+    });
     grid.appendChild(btn);
   });
+
+  /* Przywróć tabindex po krótkim opóźnieniu (po zakończeniu animacji) */
+  setTimeout(() => {
+    grid.querySelectorAll('.option-btn').forEach(b => b.setAttribute('tabindex', '0'));
+    isTransitioning = false;
+  }, 400);
 }
 
 function selectAnswer(selectedIndex) {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
   /* Blokuj ponowne kliknięcia */
   const buttons = document.querySelectorAll('.option-btn');
-  buttons.forEach(b => b.disabled = true);
+  buttons.forEach(b => {
+    b.disabled = true;
+    b.setAttribute('tabindex', '-1');
+  });
 
   /* Podświetl wybraną odpowiedź */
   buttons[selectedIndex].classList.add('selected');
@@ -998,6 +1012,7 @@ function selectAnswer(selectedIndex) {
     if (currentQuestion < questions.length) {
       renderQuestion();
     } else {
+      isTransitioning = false;
       showGateScreen();
     }
   }, 380);
@@ -1007,7 +1022,6 @@ function selectAnswer(selectedIndex) {
    KROK 3: BRAMKA E-MAIL
    ============================================================ */
 function showGateScreen() {
-  /* Podgląd kropek wyniku */
   const dots = document.getElementById('score-dots');
   dots.innerHTML = '';
   for (let i = 0; i < questions.length; i++) {
@@ -1016,7 +1030,6 @@ function showGateScreen() {
     dots.appendChild(d);
   }
 
-  /* Etykieta blurred poziomu */
   const lvl = getLevel(score);
   document.getElementById('score-preview-level').textContent =
     `Twój poziom: ${levelData[lvl].code}`;
@@ -1037,7 +1050,6 @@ function submitEmail() {
   const email = emailInput.value.trim();
   const name  = document.getElementById('input-name').value.trim();
 
-  /* Walidacja */
   if (!isValidEmail(email)) {
     emailInput.classList.add('error');
     emailError.classList.add('visible');
@@ -1052,16 +1064,23 @@ function submitEmail() {
   userName  = name;
 
   /* ============================================================
-     WYSYŁANIE DANYCH
+     WYSYŁANIE DANYCH DO MAILERLITE
      ============================================================
-     Poniżej console.log() — zastąp własnym fetch() do backendu,
-     np. Mailchimp, ActiveCampaign lub własnego API.
+     Zastąp poniższy console.log() integracją z MailerLite.
+     Instrukcja integracji zostanie dostarczona w kolejnym kroku.
 
-     Przykład integracji:
-     fetch('https://twojadomena.pl/api/leads', {
+     Przykład (do uzupełnienia po konfiguracji MailerLite):
+     fetch('https://connect.mailerlite.com/api/subscribers', {
        method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ name, email, score, level })
+       headers: {
+         'Content-Type': 'application/json',
+         'Authorization': 'Bearer TWOJ_API_KEY'
+       },
+       body: JSON.stringify({
+         email: email,
+         fields: { name: name },
+         groups: ['TWOJE_GROUP_ID']
+       })
      });
      ============================================================ */
   const level = getLevel(score);
