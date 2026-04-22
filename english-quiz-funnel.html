@@ -1065,34 +1065,44 @@ function submitEmail() {
 
   /* ============================================================
      WYSYŁANIE DANYCH DO MAILERLITE
-     ============================================================
-     Zastąp poniższy console.log() integracją z MailerLite.
-     Instrukcja integracji zostanie dostarczona w kolejnym kroku.
-
-     Przykład (do uzupełnienia po konfiguracji MailerLite):
-     fetch('https://connect.mailerlite.com/api/subscribers', {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-         'Authorization': 'Bearer TWOJ_API_KEY'
-       },
-       body: JSON.stringify({
-         email: email,
-         fields: { name: name },
-         groups: ['TWOJE_GROUP_ID']
-       })
-     });
      ============================================================ */
-  const level = getLevel(score);
-  console.log('📊 Wynik quizu:', {
-    name:  userName  || '(nie podano)',
-    email: userEmail,
-    score: score,
-    total: questions.length,
-    level: levelData[level].code
-  });
 
-  showResultScreen();
+  // Zablokuj przycisk i pokaż loader
+  const submitBtn = document.querySelector('#screen-gate .btn-primary');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Wysyłanie…';
+
+  const payload = {
+    email: email,
+    groups: ['185179570070094907']
+  };
+
+  if (name) {
+    payload.fields = { name: name };
+  }
+
+  fetch('https://connect.mailerlite.com/api/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM3OWEwMWU2MjBhYjA4ODFiYmNmN2UyNzM5Njk3NjQ0NWQ1ZmI2YmM2YWQ0ODA4MmZjOTQ5YWNiMDIwZDA5ZmUxODZlOTM5M2UyNDY5ODkiLCJpYXQiOjE3NzY4ODk0NDYuMzAyOTA0LCJuYmYiOjE3NzY4ODk0NDYuMzAyOTA2LCJleHAiOjQ5MzI1NjMwNDYuMjk3ODIxLCJzdWIiOiI5MzQzMDIiLCJzY29wZXMiOltdfQ.RKvtkyTGpsG8KPhGIWJDUzn-oyZ1leCL8P6YosgTqmKUEEcZACgDxoqeOtInfkzcB4NudYLB0BsTmCt-lHlVpY4RByB8boyyzOQYm4tLj1261OKvdT-6FlZTLm7mxX_TnqogyYgLmJcZxCLYqetr5kpG0EXjdNTI0N1Y5jLwk5KkFdIA0niicaZdxT903So1joBvLZo4cU5esOztyz59bLra3pzD_CeTiJYK4fECp8NDuvUX7HGosI-Uq1AG4XW1dBWIVTfhtNu4daQEX9UUtWBEpQ4wL5Iiw4vHaOglEx9rfdErqCrlqrwwfEATevcymO0W648hRE4i6iUFcDVx-JeXf8XBFSsYlthQ2eVac-Kj0RCq0d8rNspIEcRu7mWmdL9y6T8QPtEb-j5z7Nx0qidcI335egtnwkuwOKw2hbl_yhmyl1XHXQxv6Hl7cbhEJVKlQ-kEOH7IUzVfGBcr6R7VFM7aJRkU-FzfoOQHo9H3lT-jPZ0LPR5--oms3hmMrwDLrVFq3QQxC6ypKBua-BEYri9qi6dGPfknCkTQ2heuwNfXpdc5uGGltpxAgl_SCiBAdk4ZQQgts16FaDT3ZZqCrYB6VucNTp6Y1iXT7UadN-XV1mZqNIEYrKMZib2UJQ5kpSNlnmIXRWHWXxPlOppPuIJm8hTG5LBB4JMXgXE'
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(() => {
+    showResultScreen();
+  })
+  .catch(err => {
+    // Błąd sieci — mimo to pokaż wynik, żeby nie blokować użytkownika
+    console.error('MailerLite error:', err);
+    showResultScreen();
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Wyślij mi wynik →';
+  });
 }
 
 /* ============================================================
