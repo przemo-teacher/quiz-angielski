@@ -9,18 +9,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  /* ============================================================
-     CSS VARIABLES — zmień tutaj kolory, fonty i inne ustawienia
-     ============================================================ */
   :root {
-    /* --- Kolor główny (#FAD02C żółty) --- */
     --primary:        #FAD02C;
     --primary-dark:   #e0b800;
     --primary-light:  #fffbea;
     --primary-glow:   rgba(250, 208, 44, 0.22);
-
-    /* --- Kolory uzupełniające --- */
-    --accent:         #111827;     /* ciemny akcent na przyciskach CTA */
+    --accent:         #111827;
     --success:        #10b981;
     --surface:        #ffffff;
     --bg:             #fffdf0;
@@ -28,24 +22,15 @@
     --text-muted:     #6b7280;
     --border:         #e5e7eb;
     --shadow:         rgba(250, 208, 44, 0.14);
-
-    /* --- Typografia --- */
     --font-display:   'Sora', sans-serif;
     --font-body:      'DM Sans', sans-serif;
-
-    /* --- Zaokrąglenia --- */
     --radius-sm:      10px;
     --radius-md:      16px;
     --radius-lg:      24px;
     --radius-xl:      32px;
-
-    /* --- Przejścia --- */
     --transition:     0.22s cubic-bezier(.4,0,.2,1);
   }
 
-  /* ============================================================
-     RESET & BASE
-     ============================================================ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -60,7 +45,6 @@
     overflow-x: hidden;
   }
 
-  /* Subtle geometric background */
   body::before {
     content: '';
     position: fixed;
@@ -72,26 +56,13 @@
     z-index: 0;
   }
 
-  /* ============================================================
-     QUIZ WRAPPER
-     ============================================================ */
-  .quiz-wrapper {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 560px;
-  }
+  .quiz-wrapper { position: relative; z-index: 1; width: 100%; max-width: 560px; }
 
-  /* ============================================================
-     CARD
-     ============================================================ */
   .card {
     background: var(--surface);
     border-radius: var(--radius-xl);
     padding: 40px 36px;
-    box-shadow:
-      0 4px 6px -1px rgba(0,0,0,0.05),
-      0 20px 60px -10px rgba(250,208,44,0.15);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 20px 60px -10px rgba(250,208,44,0.15);
     border: 1px solid rgba(255,255,255,0.8);
     position: relative;
     overflow: hidden;
@@ -105,17 +76,9 @@
     background: linear-gradient(90deg, var(--primary), #fbbf24, var(--primary-dark));
   }
 
-  @media (max-width: 480px) {
-    .card { padding: 28px 20px; border-radius: var(--radius-lg); }
-  }
+  @media (max-width: 480px) { .card { padding: 28px 20px; border-radius: var(--radius-lg); } }
 
-  /* ============================================================
-     SCREEN TRANSITIONS
-     ============================================================ */
-  .screen {
-    display: none;
-    animation: fadeSlideIn 0.38s cubic-bezier(.4,0,.2,1) both;
-  }
+  .screen { display: none; animation: fadeSlideIn 0.38s cubic-bezier(.4,0,.2,1) both; }
   .screen.active { display: block; }
 
   @keyframes fadeSlideIn {
@@ -123,9 +86,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ============================================================
-     WELCOME SCREEN
-     ============================================================ */
   .badge {
     display: inline-flex;
     align-items: center;
@@ -159,19 +119,9 @@
     background-clip: text;
   }
 
-  .welcome-sub {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 28px;
-  }
+  .welcome-sub { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; }
 
-  .stats-row {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
+  .stats-row { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
 
   .stat-chip {
     display: flex;
@@ -186,9 +136,6 @@
     color: var(--text);
   }
 
-  /* ============================================================
-     BUTTON STYLES
-     ============================================================ */
   .btn-primary {
     display: block;
     width: 100%;
@@ -217,86 +164,26 @@
     transition: opacity var(--transition);
   }
 
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px var(--primary-glow);
-  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--primary-glow); }
   .btn-primary:hover::before { opacity: 1; }
   .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
-  /* ============================================================
-     PROGRESS BAR
-     ============================================================ */
-  .progress-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
+  .progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 
-  .progress-label {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    visibility: hidden;
-  }
+  .progress-label { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text-muted); visibility: hidden; }
 
-  .progress-count {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 700;
-    color: #92690a;
-  }
+  .progress-count { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: #92690a; }
 
-  .progress-track {
-    width: 100%;
-    height: 6px;
-    background: var(--border);
-    border-radius: 99px;
-    margin-bottom: 28px;
-    overflow: hidden;
-  }
+  .progress-track { width: 100%; height: 6px; background: var(--border); border-radius: 99px; margin-bottom: 28px; overflow: hidden; }
 
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary), #fbbf24);
-    border-radius: 99px;
-    transition: width 0.5s cubic-bezier(.4,0,.2,1);
-  }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #fbbf24); border-radius: 99px; transition: width 0.5s cubic-bezier(.4,0,.2,1); }
 
-  /* ============================================================
-     QUESTION
-     ============================================================ */
-  .level-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-  }
+  .level-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
 
-  .question-text {
-    font-family: var(--font-display);
-    font-size: clamp(17px, 4vw, 20px);
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 24px;
-    color: var(--text);
-  }
+  .question-text { font-family: var(--font-display); font-size: clamp(17px, 4vw, 20px); font-weight: 700; line-height: 1.4; margin-bottom: 24px; color: var(--text); }
 
-  /* ============================================================
-     ANSWER OPTIONS
-     ============================================================ */
-  .options-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .options-grid { display: flex; flex-direction: column; gap: 10px; }
 
   .option-btn {
     display: flex;
@@ -316,21 +203,11 @@
     color: var(--text);
     position: relative;
     overflow: hidden;
-    /* BUGFIX mobile: blokujemy efekt :focus który na iOS/Android
-       powoduje wizualne "zaznaczenie" pierwszego przycisku po
-       odświeżeniu ekranu pytania */
     -webkit-tap-highlight-color: transparent;
     outline: none;
   }
 
-  .option-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--primary-light);
-    opacity: 0;
-    transition: opacity var(--transition);
-  }
+  .option-btn::before { content: ''; position: absolute; inset: 0; background: var(--primary-light); opacity: 0; transition: opacity var(--transition); }
 
   .option-letter {
     flex-shrink: 0;
@@ -351,80 +228,31 @@
     z-index: 1;
   }
 
-  .option-text {
-    position: relative;
-    z-index: 1;
-    line-height: 1.4;
-  }
+  .option-text { position: relative; z-index: 1; line-height: 1.4; }
 
-  /* Hover tylko na urządzeniach z myszą — nie na dotykowych! */
   @media (hover: hover) {
-    .option-btn:hover:not(:disabled) {
-      border-color: var(--primary);
-      transform: translateX(4px);
-      box-shadow: 0 2px 12px var(--primary-glow);
-    }
+    .option-btn:hover:not(:disabled) { border-color: var(--primary); transform: translateX(4px); box-shadow: 0 2px 12px var(--primary-glow); }
     .option-btn:hover:not(:disabled)::before { opacity: 1; }
-    .option-btn:hover:not(:disabled) .option-letter {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #111827;
-    }
+    .option-btn:hover:not(:disabled) .option-letter { background: var(--primary); border-color: var(--primary); color: #111827; }
   }
 
-  /* Selected state */
-  .option-btn.selected {
-    border-color: var(--primary);
-    background: var(--primary-light);
-    transform: translateX(4px);
-  }
-
-  .option-btn.selected .option-letter {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #111827;
-  }
-
+  .option-btn.selected { border-color: var(--primary); background: var(--primary-light); transform: translateX(4px); }
+  .option-btn.selected .option-letter { background: var(--primary); border-color: var(--primary); color: #111827; }
   .option-btn:disabled { cursor: default; }
-
-  /* BUGFIX: Usuń efekt :focus-visible na mobile po kliknięciu */
   .option-btn:focus { outline: none; box-shadow: none; }
-  .option-btn:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-  }
+  .option-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
-  /* ============================================================
-     EMAIL GATE SCREEN
-     ============================================================ */
-  .gate-emoji {
-    font-size: 48px;
-    margin-bottom: 16px;
-    display: block;
-    animation: bounce 1s ease infinite alternate;
-  }
+  .gate-emoji { font-size: 48px; margin-bottom: 16px; display: block; animation: bounce 1s ease infinite alternate; }
 
   @keyframes bounce {
     from { transform: translateY(0); }
     to   { transform: translateY(-6px); }
   }
 
-  .gate-title {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 5vw, 28px);
-    font-weight: 800;
-    margin-bottom: 10px;
-    color: var(--text);
-  }
+  .gate-title { font-family: var(--font-display); font-size: clamp(22px, 5vw, 28px); font-weight: 800; margin-bottom: 10px; color: var(--text); }
 
-  .gate-sub {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin-bottom: 28px;
-  }
+  .gate-sub { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px; }
 
-  /* Score preview bar */
   .score-preview {
     background: var(--bg);
     border-radius: var(--radius-md);
@@ -436,45 +264,26 @@
     border: 1px solid var(--border);
   }
 
-  .score-dots {
-    display: flex;
-    gap: 5px;
-  }
+  .score-dots { display: flex; gap: 5px; flex-wrap: wrap; }
 
-  .score-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
   .score-dot.filled { background: var(--primary); }
 
-  .score-label {
-    font-size: 13px;
-    color: var(--text-muted);
+  .score-label { font-size: 13px; color: var(--text-muted); }
+
+  .score-label strong { font-family: var(--font-display); font-weight: 700; color: var(--text); display: block; font-size: 15px; }
+
+  /* Zamazany poziom przed podaniem emaila */
+  .blurred-level {
+    filter: blur(5px);
+    user-select: none;
+    letter-spacing: 0.05em;
+    transition: filter 0.4s ease;
   }
 
-  .score-label strong {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--text);
-    display: block;
-    font-size: 15px;
-  }
+  .form-group { margin-bottom: 14px; }
 
-  /* Form */
-  .form-group {
-    margin-bottom: 14px;
-  }
-
-  .form-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
-    font-family: var(--font-display);
-  }
+  .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; font-family: var(--font-display); }
 
   .form-input {
     width: 100%;
@@ -489,36 +298,40 @@
     outline: none;
   }
 
-  .form-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px var(--primary-glow);
-  }
-
+  .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
   .form-input.error { border-color: #ef4444; }
 
-  .form-error {
-    font-size: 12px;
-    color: #ef4444;
-    margin-top: 5px;
-    display: none;
-  }
+  .form-error { font-size: 12px; color: #ef4444; margin-top: 5px; display: none; }
   .form-error.visible { display: block; }
 
-  .anti-spam {
-    text-align: center;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 12px;
-    line-height: 1.5;
+  /* CHECKBOX RODO */
+  .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 6px;
+    margin-top: 4px;
   }
 
-  /* ============================================================
-     RESULT SCREEN
-     ============================================================ */
-  .result-header {
-    text-align: center;
-    margin-bottom: 28px;
+  .checkbox-input {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #92690a;
+    cursor: pointer;
   }
+
+  .checkbox-label { font-size: 12px; color: var(--text-muted); line-height: 1.55; cursor: pointer; }
+  .checkbox-label a { color: #92690a; text-decoration: underline; text-underline-offset: 2px; }
+  .checkbox-label a:hover { color: var(--primary-dark); }
+
+  .checkbox-error { font-size: 12px; color: #ef4444; margin-bottom: 14px; display: none; }
+  .checkbox-error.visible { display: block; }
+
+  .anti-spam { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 12px; line-height: 1.5; }
+
+  .result-header { text-align: center; margin-bottom: 28px; }
 
   .level-badge {
     display: inline-flex;
@@ -539,36 +352,12 @@
     to   { transform: scale(1);   opacity: 1; }
   }
 
-  .level-badge-code {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 800;
-    color: #111827;
-    line-height: 1;
-  }
+  .level-badge-code { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: #111827; line-height: 1; }
+  .level-badge-label { font-size: 10px; font-weight: 600; color: rgba(17,24,39,0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
 
-  .level-badge-label {
-    font-size: 10px;
-    font-weight: 600;
-    color: rgba(17,24,39,0.7);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
+  .result-title { font-family: var(--font-display); font-size: clamp(20px, 5vw, 26px); font-weight: 800; margin-bottom: 8px; }
 
-  .result-title {
-    font-family: var(--font-display);
-    font-size: clamp(20px, 5vw, 26px);
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-
-  .result-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin-bottom: 20px;
-  }
+  .result-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
 
   .result-email-info {
     background: var(--primary-light);
@@ -583,7 +372,6 @@
 
   .result-email-info strong { font-weight: 700; }
 
-  /* Score summary */
   .score-summary {
     display: flex;
     align-items: center;
@@ -596,30 +384,10 @@
     border: 1px solid var(--border);
   }
 
-  .score-summary-num {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 800;
-    color: #92690a;
-  }
-
-  .score-summary-sep {
-    font-size: 22px;
-    color: var(--border);
-  }
-
-  .score-summary-total {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-muted);
-  }
-
-  .score-summary-label {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-left: 4px;
-  }
+  .score-summary-num { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: #92690a; }
+  .score-summary-sep { font-size: 22px; color: var(--border); }
+  .score-summary-total { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--text-muted); }
+  .score-summary-label { font-size: 13px; color: var(--text-muted); margin-left: 4px; }
 
   .btn-cta {
     display: block;
@@ -641,14 +409,8 @@
     margin-top: 6px;
   }
 
-  .btn-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(17,24,39,0.22);
-  }
+  .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(17,24,39,0.22); }
 
-  /* ============================================================
-     RESPONSIVE TWEAKS
-     ============================================================ */
   @media (max-width: 360px) {
     .stats-row { gap: 8px; }
     .stat-chip { padding: 6px 10px; font-size: 12px; }
@@ -661,56 +423,42 @@
 <div class="quiz-wrapper">
   <div class="card">
 
-    <!-- ======================================================
-         EKRAN 1: POWITALNY
-         ====================================================== -->
+    <!-- EKRAN 1: POWITALNY -->
     <div class="screen active" id="screen-welcome">
       <div class="badge">🎓 Test bezpłatny</div>
       <h1 class="welcome-title">Sprawdź swój<br><span>poziom angielskiego!</span></h1>
       <p class="welcome-sub">Rozwiąż krótki test i dowiedz się, na jakim poziomie jest Twój angielski. Wyślemy Ci wynik wraz z personalizowanymi wskazówkami.</p>
 
       <div class="stats-row">
-        <div class="stat-chip">📝 10 pytań</div>
-        <div class="stat-chip">⏱️ ~3 minuty</div>
+        <div class="stat-chip">📝 12 pytań</div>
+        <div class="stat-chip">⏱️ ~4 minuty</div>
         <div class="stat-chip">🆓 Bezpłatnie</div>
       </div>
 
       <button class="btn-primary" onclick="startQuiz()">Rozpocznij test →</button>
     </div>
 
-    <!-- ======================================================
-         EKRAN 2: PYTANIA
-         ====================================================== -->
+    <!-- EKRAN 2: PYTANIA -->
     <div class="screen" id="screen-question">
       <div class="progress-header">
-        <span class="progress-label" id="level-tag">Poziom A1/A2</span>
-        <span class="progress-count" id="question-counter">Pytanie 1 z 10</span>
+        <span class="progress-label">Poziom</span>
+        <span class="progress-count" id="question-counter">Pytanie 1 z 12</span>
       </div>
       <div class="progress-track">
-        <div class="progress-fill" id="progress-fill" style="width:10%"></div>
+        <div class="progress-fill" id="progress-fill" style="width:8.33%"></div>
       </div>
-
       <div class="level-tag" id="q-level-tag"></div>
       <p class="question-text" id="question-text"></p>
-
       <div class="options-grid" id="options-grid"></div>
     </div>
 
-    <!-- ======================================================
-         EKRAN 3: BRAMKA E-MAIL
-         ====================================================== -->
+    <!-- EKRAN 3: BRAMKA E-MAIL -->
     <div class="screen" id="screen-gate">
-      <span class="gate-emoji">🎉</span>
+
       <h2 class="gate-title">Świetnie! Twój wynik jest gotowy</h2>
       <p class="gate-sub">Podaj swój adres e-mail, a wyślemy Ci szczegółowy wynik wraz ze wskazówkami, jak poprawić swój angielski na kolejny poziom.</p>
 
-      <div class="score-preview">
-        <div class="score-dots" id="score-dots"></div>
-        <div class="score-label">
-          <strong id="score-preview-level">Twój wynik…</strong>
-          Kliknij „Wyślij", aby zobaczyć szczegóły
-        </div>
-      </div>
+
 
       <div class="form-group">
         <label class="form-label" for="input-name">Imię <span style="color:var(--text-muted);font-weight:400">(opcjonalne)</span></label>
@@ -723,13 +471,19 @@
         <p class="form-error" id="email-error">Proszę podać poprawny adres e-mail.</p>
       </div>
 
+      <div class="checkbox-group">
+        <input class="checkbox-input" type="checkbox" id="checkbox-rodo">
+        <label class="checkbox-label" for="checkbox-rodo">
+          Wyrażam zgodę na przetwarzanie moich danych osobowych przez Yellow English w celu przesłania wyników testu oraz informacji o ofercie szkoły. Dane przetwarzane są zgodnie z <a href="https://yellowenglish.pl/polityka-prywatnosci/" target="_blank" rel="noopener">Polityką Prywatności</a>. Zgodę można wycofać w dowolnej chwili.
+        </label>
+      </div>
+      <p class="checkbox-error" id="checkbox-error">Proszę zaakceptować zgodę, aby kontynuować.</p>
+
       <button class="btn-primary" onclick="submitEmail()">Wyślij mi wynik →</button>
       <p class="anti-spam">🔒 Bez spamu. Możesz się wypisać w dowolnej chwili.</p>
     </div>
 
-    <!-- ======================================================
-         EKRAN 4: WYNIK / POTWIERDZENIE
-         ====================================================== -->
+    <!-- EKRAN 4: WYNIK -->
     <div class="screen" id="screen-result">
       <div class="result-header">
         <div class="level-badge">
@@ -741,196 +495,149 @@
       </div>
 
       <div class="score-summary">
-        <span class="score-summary-num" id="result-score">7</span>
+        <span class="score-summary-num" id="result-score">8</span>
         <span class="score-summary-sep">/</span>
-        <span class="score-summary-total">10</span>
+        <span class="score-summary-total">12</span>
         <span class="score-summary-label">poprawnych odpowiedzi</span>
       </div>
 
       <div class="result-email-info" id="result-email-info"></div>
 
-      <a href="#" class="btn-cta" id="result-cta">Zapisz się na kurs dopasowany do Twojego poziomu →</a>
+      <a href="https://yellowenglish.pl/zapisy/" target="_blank" rel="noopener" class="btn-cta">
+        Zapisz się na kurs dopasowany do Twojego poziomu →
+      </a>
     </div>
 
-  </div><!-- /.card -->
-</div><!-- /.quiz-wrapper -->
+  </div>
+</div>
 
 <script>
 /* ============================================================
-   PYTANIA QUIZU
+   PYTANIA — 12 pytań CEFR A1–C1
    ============================================================ */
 const questions = [
-  /* ---------- PYTANIA 1–3: POZIOM A1/A2 ---------- */
   {
-    level: "A1 · Gramatyka",
-    text: "Which sentence is correct?",
-    options: [
-      "I am have a cat",
-      "I have a cat",
-      "I has a cat",
-      "I am a cat have"
-    ],
+    text: 'Choose the correct word: "___ name is Anna. She is from Warsaw."',
+    options: ["His", "Her", "Their", "Our"],
     correct: 1
   },
   {
-    level: "A2 · Słownictwo",
-    text: "What do you say when you meet someone for the first time?",
-    options: [
-      "Good night!",
-      "See you later!",
-      "Nice to meet you!",
-      "How was your day?"
-    ],
-    correct: 2
+    text: 'Choose the correct word: "I ___ a car. I always take the bus."',
+    options: ["don't have", "am not have", "no have", "not have"],
+    correct: 0
   },
   {
-    level: "A2 · Gramatyka",
-    text: "Choose the correct sentence:",
-    options: [
-      "He don't like coffee.",
-      "He doesn't likes coffee.",
-      "He doesn't like coffee.",
-      "He not like coffee."
-    ],
-    correct: 2
-  },
-
-  /* ---------- PYTANIA 4–6: POZIOM B1/B2 ---------- */
-  {
-    level: "B1 · Czas gramatyczny",
-    text: "She _______ in London for five years before moving to Paris.",
-    options: [
-      "lived",
-      "has lived",
-      "had lived",
-      "was living"
-    ],
-    correct: 2
-  },
-  {
-    level: "B1 · Słownictwo",
-    text: "The word \"eloquent\" most closely means:",
-    options: [
-      "quiet and reserved",
-      "fluent and persuasive in speech",
-      "rude and aggressive",
-      "slow and careful"
-    ],
+    text: 'Choose the correct form: "She ___ to work every day by bus."',
+    options: ["go", "goes", "is go", "are going"],
     correct: 1
   },
   {
-    level: "B2 · Rozumienie zdań",
-    text: "If it _______ tomorrow, we'll cancel the picnic.",
-    options: [
-      "will rain",
-      "rained",
-      "rains",
-      "would rain"
-    ],
-    correct: 2
-  },
-
-  /* ---------- PYTANIA 7–10: POZIOM C1/C2 ---------- */
-  {
-    level: "B2/C1 · Gramatyka",
-    text: "The report, together with all the supporting documents, _______ been submitted.",
-    options: [
-      "have",
-      "has",
-      "were",
-      "are"
-    ],
+    text: 'Choose the correct option: "___ you ever been to London?"',
+    options: ["Did", "Have", "Do", "Was"],
     correct: 1
   },
   {
-    level: "C1 · Słownictwo",
-    text: "His speech was so _______ that the audience hung on his every word.",
-    options: [
-      "verbose",
-      "riveting",
-      "tedious",
-      "ambiguous"
-    ],
+    text: 'Choose the correct option: "___ it rains tomorrow, I will stay at home."',
+    options: ["When", "If", "Unless", "Although"],
     correct: 1
   },
   {
-    level: "C1 · Rozumienie zdań",
-    text: "Which sentence uses the subjunctive mood correctly?",
-    options: [
-      "I suggest that he goes home immediately.",
-      "I insist that he goes home immediately.",
-      "I recommend that he go home immediately.",
-      "I demand that he will go home immediately."
-    ],
-    correct: 2
+    text: 'Choose the correct word: "I\'m still ___ whether to take the new job or stay where I am."',
+    options: ["deciding", "wondering", "considering", "thinking"],
+    correct: 1
   },
   {
-    level: "C2 · Idiomy i styl",
-    text: "\"Beating around the bush\" means:",
-    options: [
-      "Gardening in the early morning",
-      "Avoiding the main topic in conversation",
-      "Searching for something in the forest",
-      "Winning an argument decisively"
-    ],
+    text: 'Choose the correct phrasal verb: "I need to ___ this problem before the meeting."',
+    options: ["sort out", "sort up", "sort away", "sort through"],
+    correct: 0
+  },
+  {
+    text: 'Choose the correct option: "The new office building ___ by the end of next year."',
+    options: ["will complete", "will have been completed", "is completing", "has been completed"],
+    correct: 1
+  },
+  {
+    text: 'Which word best fits? "The government\'s new policy has been ___ criticised by leading economists."',
+    options: ["widely", "broadly", "largely", "greatly"],
+    correct: 0
+  },
+  {
+    text: 'Choose the correct option: "By the time she arrived, everyone ___."',
+    options: ["already left", "had already left", "has already left", "was already leaving"],
+    correct: 1
+  },
+  {
+    text: 'Choose the correct option: "Never ___ such a talented musician perform live before."',
+    options: ["I have seen", "have I seen", "I had seen", "had I seen"],
+    correct: 1
+  },
+  {
+    text: 'Choose the most appropriate word: "The report\'s findings were ___ — they completely overturned what experts had assumed for decades."',
+    options: ["surprising", "groundbreaking", "interesting", "notable"],
     correct: 1
   }
 ];
 
 /* ============================================================
-   LOGIKA OCENIANIA
+   PROGI OCENIANIA (wg klucza CEFR)
+   0–2  → A1
+   3–4  → A2
+   5–7  → B1
+   8–10 → B2
+   11–12 → C1
    ============================================================ */
 const levelData = {
-  beginner: {
-    code: "A1/A2",
-    label: "Beginner",
+  a1: {
+    code: "A1", label: "Beginner",
     title: "Dobry start! 💪",
-    desc: "Znasz podstawy języka angielskiego. Masz solidny fundament — teraz czas go rozbudować! Nasz kurs dla początkujących przeprowadzi Cię przez gramatykę i słownictwo krok po kroku."
+    desc: "Znasz podstawy języka angielskiego. Masz solidny fundament — teraz czas go rozbudować! Nasz kurs dla początkujących przeprowadzi Cię przez gramatykę i słownictwo krok po kroku.",
+    mailerlite: "A1 - Beginner"
   },
-  intermediate: {
-    code: "B1/B2",
-    label: "Intermediate",
+  a2: {
+    code: "A2", label: "Elementary",
+    title: "Nieźle! 🌱",
+    desc: "Rozumiesz podstawowe zwroty i potrafisz się komunikować w prostych sytuacjach. Kurs Elementary pomoże Ci szybko przejść na kolejny poziom.",
+    mailerlite: "A2 - Elementary"
+  },
+  b1: {
+    code: "B1", label: "Intermediate",
     title: "Całkiem nieźle! 🌟",
-    desc: "Dobrze sobie radzisz z angielskim w codziennych sytuacjach. Rozumiesz teksty i potrafisz się komunikować. Kurs intermediate pomoże Ci osiągnąć płynność i pewność siebie."
+    desc: "Dobrze sobie radzisz z angielskim w codziennych sytuacjach. Rozumiesz teksty i potrafisz się komunikować. Kurs Intermediate pomoże Ci osiągnąć płynność i pewność siebie.",
+    mailerlite: "B1 - Intermediate"
   },
-  advanced: {
-    code: "C1/C2",
-    label: "Advanced",
+  b2: {
+    code: "B2", label: "Upper-Intermediate",
+    title: "Bardzo dobrze! 🚀",
+    desc: "Posługujesz się angielskim swobodnie i rozumiesz złożone teksty. Kurs Upper-Intermediate doprowadzi Cię do zaawansowanej płynności.",
+    mailerlite: "B2 - Upper-Intermediate"
+  },
+  c1: {
+    code: "C1", label: "Advanced",
     title: "Imponujące! 🏆",
-    desc: "Twój angielski jest na bardzo wysokim poziomie. Rozumiesz złożone teksty i posługujesz się językiem naturalnie. Kurs advanced doprowadzi Cię do mistrzowskiego opanowania języka."
+    desc: "Twój angielski jest na bardzo wysokim poziomie. Rozumiesz złożone teksty i posługujesz się językiem naturalnie. Kurs Advanced doprowadzi Cię do mistrzowskiego opanowania języka.",
+    mailerlite: "C1 - Advanced"
   }
 };
 
-/* ============================================================
-   STAN APLIKACJI
-   ============================================================ */
 let currentQuestion = 0;
 let score = 0;
 let userEmail = "";
 let userName = "";
-let isTransitioning = false; // BUGFIX: blokada podczas animacji przejścia
+let isTransitioning = false;
 
-/* ============================================================
-   FUNKCJE POMOCNICZE
-   ============================================================ */
 function getLevel(s) {
-  if (s <= 3) return "beginner";
-  if (s <= 6) return "intermediate";
-  return "advanced";
+  if (s <= 2)  return "a1";
+  if (s <= 4)  return "a2";
+  if (s <= 7)  return "b1";
+  if (s <= 10) return "b2";
+  return "c1";
 }
 
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => {
-    s.classList.remove('active');
-    s.style.animation = '';
-  });
-  const target = document.getElementById(id);
-  target.classList.add('active');
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-/* ============================================================
-   KROK 1: START
-   ============================================================ */
 function startQuiz() {
   currentQuestion = 0;
   score = 0;
@@ -938,49 +645,30 @@ function startQuiz() {
   renderQuestion();
 }
 
-/* ============================================================
-   KROK 2: PYTANIA
-   ============================================================ */
 function renderQuestion() {
   const q = questions[currentQuestion];
   const num = currentQuestion + 1;
   const total = questions.length;
 
-  /* Progres */
   document.getElementById('question-counter').textContent = `Pytanie ${num} z ${total}`;
   document.getElementById('progress-fill').style.width = `${(num / total) * 100}%`;
-
-  /* Etykieta poziomu — ukryta */
   document.getElementById('q-level-tag').textContent = '';
-
-  /* Treść pytania */
   document.getElementById('question-text').textContent = q.text;
 
-  /* Opcje odpowiedzi */
   const letters = ['A', 'B', 'C', 'D'];
   const grid = document.getElementById('options-grid');
   grid.innerHTML = '';
-
-  /* BUGFIX: Resetujemy fokus ze wszystkich przycisków — na mobile
-     przeglądarka czasem automatycznie ustawia fokus na pierwszym
-     elemencie, co powoduje wizualne "zaznaczenie" */
   document.activeElement?.blur();
 
   q.options.forEach((opt, i) => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
-    btn.setAttribute('tabindex', '-1'); // tymczasowo wyłącz tabindex
-    btn.innerHTML = `
-      <span class="option-letter">${letters[i]}</span>
-      <span class="option-text">${opt}</span>
-    `;
-    btn.addEventListener('click', () => {
-      if (!isTransitioning) selectAnswer(i);
-    });
+    btn.setAttribute('tabindex', '-1');
+    btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span class="option-text">${opt}</span>`;
+    btn.addEventListener('click', () => { if (!isTransitioning) selectAnswer(i); });
     grid.appendChild(btn);
   });
 
-  /* Przywróć tabindex po krótkim opóźnieniu (po zakończeniu animacji) */
   setTimeout(() => {
     grid.querySelectorAll('.option-btn').forEach(b => b.setAttribute('tabindex', '0'));
     isTransitioning = false;
@@ -991,22 +679,12 @@ function selectAnswer(selectedIndex) {
   if (isTransitioning) return;
   isTransitioning = true;
 
-  /* Blokuj ponowne kliknięcia */
   const buttons = document.querySelectorAll('.option-btn');
-  buttons.forEach(b => {
-    b.disabled = true;
-    b.setAttribute('tabindex', '-1');
-  });
-
-  /* Podświetl wybraną odpowiedź */
+  buttons.forEach(b => { b.disabled = true; b.setAttribute('tabindex', '-1'); });
   buttons[selectedIndex].classList.add('selected');
 
-  /* Zlicz punkt */
-  if (selectedIndex === questions[currentQuestion].correct) {
-    score++;
-  }
+  if (selectedIndex === questions[currentQuestion].correct) score++;
 
-  /* Przejdź do kolejnego pytania po krótkim opóźnieniu */
   setTimeout(() => {
     currentQuestion++;
     if (currentQuestion < questions.length) {
@@ -1018,68 +696,58 @@ function selectAnswer(selectedIndex) {
   }, 380);
 }
 
-/* ============================================================
-   KROK 3: BRAMKA E-MAIL
-   ============================================================ */
 function showGateScreen() {
-  const dots = document.getElementById('score-dots');
-  dots.innerHTML = '';
-  for (let i = 0; i < questions.length; i++) {
-    const d = document.createElement('div');
-    d.className = 'score-dot' + (i < score ? ' filled' : '');
-    dots.appendChild(d);
-  }
-
-  const lvl = getLevel(score);
-  document.getElementById('score-preview-level').textContent =
-    `Twój poziom: ${levelData[lvl].code}`;
-
   showScreen('screen-gate');
 }
 
-/* ============================================================
-   WALIDACJA E-MAIL
-   ============================================================ */
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function submitEmail() {
-  const emailInput = document.getElementById('input-email');
-  const emailError = document.getElementById('email-error');
-  const email = emailInput.value.trim();
-  const name  = document.getElementById('input-name').value.trim();
+  const emailInput    = document.getElementById('input-email');
+  const emailError    = document.getElementById('email-error');
+  const checkboxRodo  = document.getElementById('checkbox-rodo');
+  const checkboxError = document.getElementById('checkbox-error');
+  const email         = emailInput.value.trim();
+  const name          = document.getElementById('input-name').value.trim();
+  let valid = true;
 
   if (!isValidEmail(email)) {
     emailInput.classList.add('error');
     emailError.classList.add('visible');
-    emailInput.focus();
-    return;
+    valid = false;
+  } else {
+    emailInput.classList.remove('error');
+    emailError.classList.remove('visible');
   }
 
-  emailInput.classList.remove('error');
-  emailError.classList.remove('visible');
+  if (!checkboxRodo.checked) {
+    checkboxError.classList.add('visible');
+    valid = false;
+  } else {
+    checkboxError.classList.remove('visible');
+  }
+
+  if (!valid) return;
 
   userEmail = email;
   userName  = name;
 
-  /* ============================================================
-     WYSYŁANIE DANYCH DO MAILERLITE
-     ============================================================ */
-
-  // Zablokuj przycisk i pokaż loader
   const submitBtn = document.querySelector('#screen-gate .btn-primary');
   submitBtn.disabled = true;
   submitBtn.textContent = 'Wysyłanie…';
 
+  const level = getLevel(score);
   const payload = {
     email: email,
-    groups: ['185179570070094907']
+    groups: ['185179570070094907'],
+    fields: {
+      ...(name && { name: name }),
+      poziom: levelData[level].mailerlite,
+      wynik:  `${score}/${questions.length}`
+    }
   };
-
-  if (name) {
-    payload.fields = { name: name };
-  }
 
   fetch('https://connect.mailerlite.com/api/subscribers', {
     method: 'POST',
@@ -1091,23 +759,14 @@ function submitEmail() {
     body: JSON.stringify(payload)
   })
   .then(res => res.json())
-  .then(() => {
-    showResultScreen();
-  })
-  .catch(err => {
-    // Błąd sieci — mimo to pokaż wynik, żeby nie blokować użytkownika
-    console.error('MailerLite error:', err);
-    showResultScreen();
-  })
+  .then(() => { showResultScreen(); })
+  .catch(err => { console.error('MailerLite error:', err); showResultScreen(); })
   .finally(() => {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Wyślij mi wynik →';
   });
 }
 
-/* ============================================================
-   KROK 4: WYNIK
-   ============================================================ */
 function showResultScreen() {
   const lvl  = getLevel(score);
   const data = levelData[lvl];
@@ -1120,7 +779,7 @@ function showResultScreen() {
 
   const nameDisplay = userName ? `, ${userName}` : '';
   document.getElementById('result-email-info').innerHTML =
-    `📩 Szczegółowy raport został wysłany na <strong>${userEmail}</strong>${nameDisplay ? ' — miłego czytania' + nameDisplay + '!' : '.'}`;
+    `📩 Szczegółowy wynik został wysłany na <strong>${userEmail}</strong>${nameDisplay ? ' — miłego czytania' + nameDisplay + '!' : '.'}`;
 
   showScreen('screen-result');
 }
